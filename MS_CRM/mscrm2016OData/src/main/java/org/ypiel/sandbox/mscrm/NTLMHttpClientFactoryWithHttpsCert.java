@@ -59,7 +59,7 @@ public class NTLMHttpClientFactoryWithHttpsCert extends NTLMAuthHttpClientFactor
 			HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10 * 1000);
 			HttpConnectionParams.setSoTimeout(httpClient.getParams(), 10 * 1000);
 
-			// ------------------------------- Don't ignore self-certified
+			// ------------------------------- Don't ignore self-signed certified
 			httpClient.getConnectionManager().getSchemeRegistry()
 					.register(new Scheme("https", 443, new SSLSocketFactory("TLS", ks, null, null, null,
 							new TrustSelfSignedStrategy(), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)));
