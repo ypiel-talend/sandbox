@@ -44,17 +44,6 @@ public class NTLMHttpClientFactory extends NTLMAuthHttpClientFactory {
 			HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10 * 1000);
 			HttpConnectionParams.setSoTimeout(httpClient.getParams(), 10 * 1000);
 
-			// --------- Don't check certificate at all
-//			httpClient.getConnectionManager().getSchemeRegistry()
-//					.register(new Scheme("https", 443, new SSLSocketFactory(new TrustStrategy() {
-//
-//						@Override
-//						public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//							return true;
-//						}
-//
-//					}, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)));
-			// ---------------------------------------------------------
 
 			//------------------------------- Don't ignore self-certified certificates -----------
 			httpClient.getConnectionManager().getSchemeRegistry()

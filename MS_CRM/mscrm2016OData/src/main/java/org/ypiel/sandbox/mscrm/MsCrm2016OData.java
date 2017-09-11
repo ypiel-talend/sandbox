@@ -1,13 +1,6 @@
 package org.ypiel.sandbox.mscrm;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.security.KeyStore;
 import java.util.List;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 
 import org.apache.olingo.client.api.ODataClient;
 import org.apache.olingo.client.api.communication.request.retrieve.EdmMetadataRequest;
@@ -21,6 +14,7 @@ import org.apache.olingo.commons.api.edm.Edm;
 import org.apache.olingo.commons.api.edm.EdmAction;
 import org.apache.olingo.commons.api.edm.EdmEntityType;
 import org.apache.olingo.commons.api.edm.EdmSchema;
+import org.ypiel.sandbox.mscrm.NTLMHttpClientFactoryBasicHttpsAcceptAllCertificates;
 
 public class MsCrm2016OData {
 	public final static void main(String[] args) {
