@@ -65,9 +65,9 @@ public class TestVerticaCopyStream {
 
 			// Simple for loop to load 5 text files named customers-1.txt to
 			// customers-5.txt
-			for (int loadNum = 1; loadNum <= 5; loadNum++) {
+			for (int loadNum = 0; loadNum <= 5; loadNum++) {
 				// Prepare the input file stream. Read from a local file.
-				String filename = "C:\\Data\\customers-" + loadNum + ".txt";
+				String filename = "./resources/fill_vertica"+loadNum+".csv";
 				System.out.println("\n\nLoading file: " + filename);
 				File inputFile = new File(filename);
 				FileInputStream inputStream = new FileInputStream(inputFile);
