@@ -19,8 +19,9 @@ public class TestVerticaCopyStream {
 		// to manually load the JDBC driver.
 		// Set up the properties of the connection
 		Properties myProp = new Properties();
-		myProp.put("user", "talend"); // Must be superuser
-		myProp.put("password", "aze123#");
+		myProp.put("user", "dbadmin"); // Must be superuser
+		//myProp.put("password", "aze123#");
+		
 		// When performing bulk loads, you should always disable the
 		// connection's AutoCommit property to ensure the loads happen as
 		// efficiently as possible by reusing the same COPY command and
@@ -28,12 +29,12 @@ public class TestVerticaCopyStream {
 		myProp.put("AutoCommit", "false");
 		Connection conn;
 		try {
-			conn = DriverManager.getConnection("jdbc:vertica://192.168.50.133:5433/docker", myProp);
+			conn = DriverManager.getConnection("jdbc:vertica://192.168.50.140:5433/docker", myProp);
 			Statement stmt = conn.createStatement();
 
 			// Create a table to receive the data
-			stmt.execute("DROP TABLE IF EXISTS customers;");
-			stmt.execute("CREATE TABLE IF NOT EXISTS Public.customers (" //
+			stmt.execute("DROP TABLE IF EXISTS customers_stream;");
+			stmt.execute("CREATE TABLE IF NOT EXISTS Public.customers_stream (" //
 					+ "  id integer PRIMARY KEY NOT NULL,"//
 					+ "  name varchar(30) NOT NULL," //
 					+ "  age integer NOT NULL,"//
@@ -46,7 +47,7 @@ public class TestVerticaCopyStream {
 			// a file on the host, you do not need superuser privileges to
 			// copy a stream. All your user account needs is INSERT privileges
 			// on the target table.
-			String copyQuery = "COPY customers FROM STDIN " + "DELIMITER '|' DIRECT ENFORCELENGTH";
+			String copyQuery = "COPY customers_stream FROM STDIN BZIP STREAM NAME 'tal''end' " + "DELIMITER '|' DIRECT ENFORCELENGTH";
 
 			// Create an instance of the stream class. Pass in the
 			// connection and the query string.
@@ -67,7 +68,7 @@ public class TestVerticaCopyStream {
 			// customers-5.txt
 			for (int loadNum = 0; loadNum <= 5; loadNum++) {
 				// Prepare the input file stream. Read from a local file.
-				String filename = "./resources/fill_vertica"+loadNum+".csv";
+				String filename = "./resources/fill_vertica"+loadNum+".csv.bz2";
 				System.out.println("\n\nLoading file: " + filename);
 				File inputFile = new File(filename);
 				FileInputStream inputStream = new FileInputStream(inputFile);
